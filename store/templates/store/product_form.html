@@ -1,0 +1,38 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE HTML>
+<html>
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Add Product</title>
+        
+    
+    <style type="text/css" media="all">
+      body {
+        margin: 20px;
+        padding: 20px;
+      }
+    </style>
+    
+</head>
+  <body>
+    <form method="POST" enctype="multipart/form-data">
+      {%  csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Add Product</legend>
+          {{ form.media }}
+          {{ form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Add</button>  <a class="btn btn-outline-secondary mb sm" href="{% url 'blog-home' %}">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
+    

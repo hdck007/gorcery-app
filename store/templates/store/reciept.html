@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{ user }},
+
+Your order for {{ quantity }}(Kg/L) of {{product.name}} is placed and will be delivered soon!
+Additional Details
+Shop name : {{product.shop}}
+Total amount : ₹{{amount}}
+
+You can continue shopping on our site!
+If you find any wrong information on our site or you have any other problem please report it back on the same email.
+
+Thank You!
+{% endautoescape %}

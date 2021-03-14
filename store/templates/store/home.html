@@ -1,0 +1,67 @@
+{% extends "store/base.html" %}
+{% block title %}Store{% endblock title %}
+<style>
+  .card{
+    margin:auto;
+  }
+</style>
+{% block content %}
+  <form method="get" action="search">
+    <input type="search" name="query" id="query" value="" class="form-control form-control-lg"/>
+    <button class="btn btn-primary mt-1" type="submit">Search</button>
+  </form>
+  <br /><br />
+  <a href="{% url 'post-create' %}">+Add Product</a>
+  <hr>
+  <div class="container">  
+      <div class="card-deck">
+  {% for product in products %}
+      <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">₹{{ product.price }}</p>
+            {% if product.quantity <= 0 %}
+              <p class="card-text text-danger">Out Of Stock</p>  
+            {% else %}
+              <p class="card-text">{{ product.quantity }}(Kg/L) left in stock!</p>
+            {% endif %}
+            <p class="card-text">Sold by <a href="{% url 'user-products' product.shop.username %}">{{ product.shop }}</a></p>
+            <a href="{% url  'product-detail' product.id %}" class="btn btn-success">Order Now</a>
+        </div>
+      </div>
+        
+    <!-- <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="{% url 'user-products' product.shop.username %}">{{ product.shop }}</a>
+          <small class="text-muted">{{ product.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <h2><a class="article-title break-text" href="{% url  'product-detail' product.id %}">{{ product.name }}</a></h2>
+        <p class="article-content break-text">{{ product.description }}</p>
+      </div>
+    </article> -->
+  {% endfor %}
+     </div>
+   </div>
+  {% if is_paginated %}
+    {% if page_obj.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">1st</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+    {% endif %}
+    
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    
+    {% if page_obj.has_next %}
+      <a class="btn sm btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+    
+  {% endif %}
+{% endblock content %}

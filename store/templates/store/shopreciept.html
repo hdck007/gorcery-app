@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{product.shop}},
+
+You have recieved a order for {{ quantity }}(Kg/L) of {{product.name}}, please deliver it as soon as possible!
+Additional Details
+Customer name : {{user}}
+Total amount : ₹{{amount}}
+Address: {{address}}
+
+Incase of any delay or other problems( unavailability of stock, duplicate orders etc..) please contact us back on the same email.
+
+Thank You!
+{% endautoescape %}

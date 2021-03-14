@@ -1,0 +1,48 @@
+{% extends "store/base.html" %}
+{% block title %}Purchase product{% endblock title %}
+<style>
+  .pimage{
+    width: 300px;
+    height: 400px;
+  }
+</style>
+{% block content %}
+  <article class="media">
+    <!-- <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="" /> -->
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{% url 'user-products' object.shop.username %}">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        {% if object.author == shop %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'product-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'product-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+  <br>
+  
+  <article >
+    <img class="pimage" src="{{ object.image.url }}" alt="image of the product"><br>
+    <h2 class="article-title break-text ">{{ object.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;₹{{object.price}}</h2><br>
+    <p class="article-content break-text">{{ object.description }}</p>
+    {% if product.quantity <= 0 %}
+       <h4 class="text-danger">Out Of Stock</h4>  
+    {% else %}
+      <p>{{ object.quantity }}</b>(Kg/L) left in stock!</p>
+      <form action="/order" method="get">
+        <input name="quantity" id="quantity" placeholder="Enter the Quantity"><br> <br>
+        <input type="text" name="address" id="address" placeholder="Enter the Address..."><br /> <br />
+        <input type="hidden" name="id" value="{{ object.pk }}">
+        <button class="btn btn-success" type="submit" >Order</button>
+      </form>
+    {% endif %}
+    
+
+  </article>
+  <hr>
+  <br>
+  <div class="fb-comments" data-href="https://devit-blog.herokuapp.com/post/{{ object.pk }}/" data-numposts="5" data-width="100%"></div>
+{% endblock content %}
