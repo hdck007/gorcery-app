@@ -26,3 +26,5 @@
 > If you feel stuck feel free to contact me
 > and once watch a tutorial about django and git so that you become a bit familiar
 > Also click on the watch and star button just to be aware of the happennings.
+
+# Do checkout the gist of what is needed to be done here [Gist](https://github.com/hdck007/gorcery-app/blob/master/gist.md)
